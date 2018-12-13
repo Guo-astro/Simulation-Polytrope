@@ -116,7 +116,6 @@ public class RungeKutta {
 				y = y.add(yf);
 				zf = m1.add(m2.multiply(two)).add(m3.multiply(two)).add(m4).multiply(new BigDecimal("0.1666666666667"));
 				yprime = yprime.add(zf);
-				
 				// Update the data array with the new RK4 values
 				resultValues[i+1] = new Parameters();
 				resultValues[i+1].y = y;

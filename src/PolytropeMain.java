@@ -15,7 +15,7 @@ import java.io.*;
 ####################################################################################
 */
 
-public class Polytrope {
+public class PolytropeMain {
 	
 	// This is the main class that starts the polytropic calculations today
 	public static void main(String[] args) {
@@ -23,7 +23,8 @@ public class Polytrope {
 		// Default runtime arguments
 		BigDecimal h = new BigDecimal("0.01");
 		String sOutputPath = "";
-		double n = 3.0D;
+//		double n = -10D;
+		double n =100000000D;
 		int tIncrements = 700;
 		int totalArrayOutput = 0;
 		
@@ -101,7 +102,13 @@ public class Polytrope {
 					if (bFileOutput) {
 						pw.println((secondOrderOde.getValues(i).t) + "," + (secondOrderOde.getValues(i).y) + "," + (secondOrderOde.getValues(i).yprime));
 					}
-					System.out.println((secondOrderOde.getValues(i).t) + " " + (secondOrderOde.getValues(i).y) + " " + (secondOrderOde.getValues(i).yprime));
+					double stable_up = 1- ((n -3D)/(2D))*Math.pow(secondOrderOde.getValues(i).yprime.doubleValue(),2)*Math.pow(secondOrderOde.getValues(i).y.doubleValue(),-(n+1D));
+					double stable_down = 1+((n -3D)/(n-1D)/secondOrderOde.getValues(i).t.doubleValue())*(secondOrderOde.getValues(i).yprime.doubleValue())/Math.pow(secondOrderOde.getValues(i).y.doubleValue(),n) ;  
+					double partial_p_partial_v = stable_up/stable_down;
+					//					System.out.println((secondOrderOde.getValues(i).t) + " " + (secondOrderOde.getValues(i).y) + " " + (secondOrderOde.getValues(i).yprime));
+//					System.out.println((secondOrderOde.getValues(i).t) + " "+ (secondOrderOde.getValues(i).yprime));
+					System.out.println((secondOrderOde.getValues(i).t) + " " + (secondOrderOde.getValues(i).y) + " " + (secondOrderOde.getValues(i).yprime)+" "+  partial_p_partial_v );
+
 				}
 
 			}		
